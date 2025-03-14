@@ -20,4 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    # Use 'api/workouts/' prefix for all workout endpoints
+    path('api/workouts/', include('workouts.urls')),
 ]
