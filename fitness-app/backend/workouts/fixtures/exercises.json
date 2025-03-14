@@ -1,0 +1,691 @@
+[
+  {
+    "model": "workouts.exercise",
+    "pk": "34279187-5832-43ec-9e46-d2184dba1a83",
+    "fields": {
+      "name": "Bench Press",
+      "description": "Lie on flat bench and press barbell upward",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell, Bench",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a4f35b9d-7123-49e1-9c81-5b4f2d98a3f5",
+    "fields": {
+      "name": "Incline Bench Press",
+      "description": "Lie on an incline bench and press barbell upward to target upper chest",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell, Incline Bench",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "b2c56f8e-4b3d-41a7-9687-4f7d9c671b23",
+    "fields": {
+      "name": "Decline Bench Press",
+      "description": "Lie on a decline bench and press barbell upward to target lower chest",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell, Decline Bench",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c1e45d9a-6f8b-42c3-b5a1-8d9e7f2b4d5c",
+    "fields": {
+      "name": "Push-Up",
+      "description": "Support your body with hands and toes, lower chest to ground and push back up",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "d7f23e1b-9c84-47b5-a6d2-8e3f1c9b5a4d",
+    "fields": {
+      "name": "Incline Push-Up",
+      "description": "Easier variation with hands on elevated surface",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Bench or elevated surface",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "2b45de88-5a34-4408-a2b1-b29ba50c116b",
+    "fields": {
+      "name": "Decline Push-Up",
+      "description": "Harder variation with feet on elevated surface",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Bench or elevated surface",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "f1e2d3c4-b5a6-7890-1234-567890abcdef",
+    "fields": {
+      "name": "Dumbbell Chest Fly",
+      "description": "Lie on bench, open arms wide with slight elbow bend, then bring dumbbells together above chest",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells, Bench",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "fields": {
+      "name": "Cable Chest Fly",
+      "description": "Using cable machine, bring handles together in front of chest with slight elbow bend",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Cable Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "b2c3d4e5-f6a7-89b0-cde1-234567890abc",
+    "fields": {
+      "name": "Chest Dip",
+      "description": "Using parallel bars, lower body by bending arms, leaning forward to emphasize chest",
+      "muscle_group": "chest",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dip Bars",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c3d4e5f6-a7b8-90c1-d2e3-456789abcdef",
+    "fields": {
+      "name": "Pull-Up",
+      "description": "Hang from bar with palms facing away, pull body up until chin clears the bar",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Pull-up Bar",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "d4e5f6a7-b8c9-0123-4567-89abcdef0123",
+    "fields": {
+      "name": "Chin-Up",
+      "description": "Hang from bar with palms facing toward you, pull body up until chin clears the bar",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Pull-up Bar",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "e5f6a7b8-c9d0-1234-5678-9abcdef01234",
+    "fields": {
+      "name": "Bent-Over Row",
+      "description": "Bend at waist, pull barbell towards lower chest while keeping back straight",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "f6a7b8c9-d0e1-2345-6789-abcdef012345",
+    "fields": {
+      "name": "Seated Cable Row",
+      "description": "Sit at cable machine, pull handle toward abdomen while keeping back straight",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Cable Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a7b8c9d0-e1f2-3456-7890-abcdef123456",
+    "fields": {
+      "name": "Lat Pulldown",
+      "description": "Sitting at machine, pull bar down to upper chest",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Lat Pulldown Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "b8c9d0e1-f2a3-4567-890a-bcdef1234567",
+    "fields": {
+      "name": "Deadlift",
+      "description": "Lift barbell from ground to thigh level with straight back and arms",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 4
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c9d0e1f2-a3b4-5678-90ab-cdef12345678",
+    "fields": {
+      "name": "Superman",
+      "description": "Lie face down and lift arms and legs simultaneously",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "d0e1f2a3-b4c5-6789-0abc-def123456789",
+    "fields": {
+      "name": "Back Extension",
+      "description": "Using back extension bench, bend at waist and raise torso to straight position",
+      "muscle_group": "back",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Back Extension Bench",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "9a5e14f7-ede8-417c-a0a7-5bb1360b0e84",
+    "fields": {
+      "name": "Squat",
+      "description": "Stand with barbell on shoulders, bend knees and hips to lower body, then return to standing",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "13514219-fb73-4930-830a-295605a4bd99",
+    "fields": {
+      "name": "Leg Press",
+      "description": "Sitting in machine, push platform away by extending knees",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Leg Press Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "df5f1848-1cf2-4e12-8168-218bea46094d",
+    "fields": {
+      "name": "Lunge",
+      "description": "Step forward and lower body by bending both knees, then push back to starting position",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c7daee1f-28be-4575-96d3-178b4012cafa",
+    "fields": {
+      "name": "Leg Extension",
+      "description": "Sitting in machine, extend knees to raise weight",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Leg Extension Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "f5efe395-779a-4f48-ab58-2f274e34efcf",
+    "fields": {
+      "name": "Leg Curl",
+      "description": "Lying face down on machine, bend knees to raise weight",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Leg Curl Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "0bda8e30-9940-4c08-aad1-c99f526af087",
+    "fields": {
+      "name": "Calf Raise",
+      "description": "Stand with weights and raise heels off ground by extending ankles",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells or Machine",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "0637337a-c76d-4708-b0fd-bcb0490230be",
+    "fields": {
+      "name": "Romanian Deadlift",
+      "description": "Hold barbell at thigh level, bend at hips while keeping legs mostly straight, lower weight toward floor",
+      "muscle_group": "legs",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "66950b76-dac1-41d1-8f78-27666dad6436",
+    "fields": {
+      "name": "Overhead Press",
+      "description": "Standing with barbell at shoulder level, press weight overhead",
+      "muscle_group": "shoulders",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "44463136-ff96-4961-831d-4e9ef3cc7b2a",
+    "fields": {
+      "name": "Lateral Raise",
+      "description": "Hold dumbbells at sides, raise arms out to sides until parallel with floor",
+      "muscle_group": "shoulders",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "080ffaef-6223-44f5-860f-f5060c1c4c01",
+    "fields": {
+      "name": "Front Raise",
+      "description": "Hold dumbbells in front, raise arms forward until parallel with floor",
+      "muscle_group": "shoulders",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "76598d7f-6669-4572-91f0-2c1c0a2ff8bb",
+    "fields": {
+      "name": "Reverse Fly",
+      "description": "Bend forward at hips, raise dumbbells out to sides focusing on rear shoulders",
+      "muscle_group": "shoulders",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "bd5feb64-5bc7-4067-9f44-a730eaef776d",
+    "fields": {
+      "name": "Upright Row",
+      "description": "Hold barbell in front with narrow grip, pull up to chin level with elbows leading",
+      "muscle_group": "shoulders",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a518578e-9ed0-4ec9-9383-d1ced27e2ef8",
+    "fields": {
+      "name": "Bicep Curl",
+      "description": "Hold dumbbells with arms extended, bend at elbow to bring weight toward shoulders",
+      "muscle_group": "arms",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "2c6a9f9c-0b72-4064-a4df-6bb64e051a75",
+    "fields": {
+      "name": "Hammer Curl",
+      "description": "Like bicep curl but with palms facing each other",
+      "muscle_group": "arms",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "0cdb2734-4b47-44af-bb1e-6226959ffc91",
+    "fields": {
+      "name": "Tricep Pushdown",
+      "description": "Using cable machine, push handle down by extending elbows",
+      "muscle_group": "arms",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Cable Machine",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "37eb1239-84f0-413e-959d-69bfe18611f1",
+    "fields": {
+      "name": "Tricep Extension",
+      "description": "Hold dumbbell overhead, lower behind head by bending elbow, then extend",
+      "muscle_group": "arms",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbell",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "aa5c7bc4-7bf3-41a3-ae21-8f9c0cacb26a",
+    "fields": {
+      "name": "Skull Crusher",
+      "description": "Lie on bench with barbell extended above chest, bend elbows to lower weight toward forehead",
+      "muscle_group": "arms",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell, Bench",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "87aef5b4-5ef6-4c60-bc5f-600cb0b93e5b",
+    "fields": {
+      "name": "Wrist Curl",
+      "description": "Rest forearms on bench, palms up, curl weight using only wrists",
+      "muscle_group": "arms",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "eb423313-80f2-41c6-a9fc-5607ed3ee5ef",
+    "fields": {
+      "name": "Crunch",
+      "description": "Lie on back with knees bent, lift shoulders off floor using abdominal muscles",
+      "muscle_group": "core",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "89783a8f-ae47-49ac-8c74-f5b9572953da",
+    "fields": {
+      "name": "Plank",
+      "description": "Hold push-up position but resting on forearms, keeping body straight",
+      "muscle_group": "core",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a1b2c3d4-e5f6-7890-abcd-ef0123456789",
+    "fields": {
+      "name": "Russian Twist",
+      "description": "Sit with knees bent and torso leaning back, rotate torso side to side",
+      "muscle_group": "core",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Optional Weight",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "b2c3d4e5-f6a7-8901-2345-67890abcdef0",
+    "fields": {
+      "name": "Leg Raise",
+      "description": "Lie on back, keep legs straight and raise them toward ceiling",
+      "muscle_group": "core",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c3d4e5f6-a7b8-9012-3456-7890abcdef01",
+    "fields": {
+      "name": "Mountain Climber",
+      "description": "Start in plank position, rapidly bring knees toward chest alternating legs",
+      "muscle_group": "core",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "d4e5f6a7-b8c9-0123-4567-890abcdef012",
+    "fields": {
+      "name": "Burpee",
+      "description": "From standing, drop to floor, perform push-up, return to standing, jump with arms overhead",
+      "muscle_group": "full_body",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "e5f6a7b8-c9d0-1234-5678-90abcdef0123",
+    "fields": {
+      "name": "Kettlebell Swing",
+      "description": "Swing kettlebell from between legs to chest height using hip drive",
+      "muscle_group": "full_body",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Kettlebell",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "f6a7b8c9-d0e1-2345-6789-0abcdef01234",
+    "fields": {
+      "name": "Clean and Press",
+      "description": "In one motion, lift barbell from floor to shoulders, then press overhead",
+      "muscle_group": "full_body",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Barbell",
+      "difficulty_level": 4
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a7b8c9d0-e1f2-3456-7890-abcdef012345",
+    "fields": {
+      "name": "Thruster",
+      "description": "Hold weights at shoulders, squat down, as you rise press weights overhead",
+      "muscle_group": "full_body",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Dumbbells or Barbell",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "3606d14e-98ad-46b8-92db-d2248bf0d97e",
+    "fields": {
+      "name": "Turkish Get-Up",
+      "description": "Complex movement: rise from lying to standing while holding weight overhead",
+      "muscle_group": "full_body",
+      "is_cardio": false,
+      "is_custom": false,
+      "equipment_needed": "Kettlebell or Dumbbell",
+      "difficulty_level": 4
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c9d0e1f2-a3b4-5678-90ab-cdef12345679",
+    "fields": {
+      "name": "Running",
+      "description": "Running at steady pace on treadmill or outdoors",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "5dac0d21-9b8a-4123-bee9-8af4f5424514",
+    "fields": {
+      "name": "Jump Rope",
+      "description": "Skip with jump rope continuously",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Jump Rope",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "e1f2a3b4-c5d6-7890-abcd-ef1234567890",
+    "fields": {
+      "name": "Cycling",
+      "description": "Pedal on stationary bike or outdoors",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Bicycle or Stationary Bike",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "bdd74795-d790-4731-933e-ceafa7c2db38",
+    "fields": {
+      "name": "Rowing",
+      "description": "Use rowing machine with proper form to engage full body",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Rowing Machine",
+      "difficulty_level": 2
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "a3b4c5d6-e7f8-9012-3456-7890abcdef01",
+    "fields": {
+      "name": "Stair Climber",
+      "description": "Use stair climbing machine to simulate climbing stairs",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Stair Climber Machine",
+      "difficulty_level": 3
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "b4c5d6e7-f8a9-0123-4567-890abcdef012",
+    "fields": {
+      "name": "Elliptical",
+      "description": "Use elliptical machine with smooth motion",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "Elliptical Machine",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "c5d6e7f8-a9b0-1234-5678-90abcdef0123",
+    "fields": {
+      "name": "Jumping Jacks",
+      "description": "Jump while spreading legs and raising arms overhead, then return to standing",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 1
+    }
+  },
+  {
+    "model": "workouts.exercise",
+    "pk": "d6e7f8a9-b0c1-2345-6789-0abcdef01234",
+    "fields": {
+      "name": "High Knees",
+      "description": "Run in place lifting knees to waist height",
+      "muscle_group": "cardio",
+      "is_cardio": true,
+      "is_custom": false,
+      "equipment_needed": "None",
+      "difficulty_level": 2
+    }
+  }
+]

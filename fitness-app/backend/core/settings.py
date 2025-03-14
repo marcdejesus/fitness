@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'storages',
     'api',
+    'workouts',  # Add this line
 ]
 
 MIDDLEWARE = [
