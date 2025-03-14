@@ -19,10 +19,13 @@ node_modules
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
 *.pem
+.env*
+!.env.example
 
 # debug
 npm-debug.log*
@@ -30,12 +33,33 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Expo
+.expo/
+web-build/
+expo-env.d.ts
+
+# Mobile specific
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.ipa
+*.aab
+
+# IDE specific
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS specific
+Thumbs.db
