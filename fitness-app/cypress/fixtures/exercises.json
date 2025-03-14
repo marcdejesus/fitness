@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "name": "Bench Press",
+    "muscle_group": "Chest",
+    "equipment_needed": "Barbell",
+    "is_cardio": false
+  },
+  {
+    "id": "2",
+    "name": "Squat",
+    "muscle_group": "Legs",
+    "equipment_needed": "Barbell",
+    "is_cardio": false
+  },
+  {
+    "id": "3",
+    "name": "Deadlift",
+    "muscle_group": "Back",
+    "equipment_needed": "Barbell",
+    "is_cardio": false
+  },
+  {
+    "id": "4",
+    "name": "Running",
+    "muscle_group": "Cardiovascular",
+    "equipment_needed": "None",
+    "is_cardio": true
+  }
+] 

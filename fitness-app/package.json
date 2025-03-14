@@ -4,5 +4,18 @@
     "apps/web",
     "apps/mobile",
     "shared"
-  ]
+  ],
+  "scripts": {
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:backend": "cd backend && source venv/bin/activate && python3 manage.py runserver 8000",
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:backend\"",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:e2e": "start-server-and-test dev http://localhost:3000 cypress:run"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cypress": "^14.2.0",
+    "start-server-and-test": "^2.0.11"
+  }
 }

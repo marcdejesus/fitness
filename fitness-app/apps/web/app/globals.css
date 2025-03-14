@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #f8f9fa;
   --foreground: #171717;
+  --card-background: #ffffff;
+  --primary-color: #228be6;
+  --primary-hover: #1c7ed6;
+  --border-color: #e9ecef;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }
 
 @theme inline {
@@ -14,13 +23,79 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1A1B1E;
     --foreground: #ededed;
+    --card-background: #25262b;
+    --primary-color: #339af0;
+    --primary-hover: #4dabf7;
+    --border-color: #373A40;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Consistent styling for links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* Consistent container styling */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Consistent card styling */
+.card {
+  background: var(--card-background);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+/* Consistent button styling */
+.button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: var(--primary-hover);
+}
+
+/* Consistent form styling */
+input, textarea, select {
+  background: var(--card-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  width: 100%;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--primary-color);
+  border-color: transparent;
 }

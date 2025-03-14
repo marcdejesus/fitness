@@ -29,6 +29,12 @@ export default function Home() {
                   Go to Dashboard
                 </Link>
                 <Link 
+                  href="/workouts" 
+                  className="rounded-full bg-green-600 hover:bg-green-700 text-white font-medium px-8 py-3 text-base transition-colors"
+                >
+                  My Workouts
+                </Link>
+                <Link 
                   href="/profile" 
                   className="rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 font-medium px-8 py-3 text-base transition-colors"
                 >
