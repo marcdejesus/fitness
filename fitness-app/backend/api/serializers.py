@@ -1,5 +1,35 @@
 from rest_framework import serializers
 from .models import UserProfile, UserSettings
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    display_name = serializers.CharField(source='first_name')
+    password = serializers.CharField(write_only=True)
+    
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'display_name', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+    
+    def create(self, validated_data):
+        first_name = validated_data.pop('first_name', '')
+        email = validated_data.pop('email')
+        password = validated_data.pop('password')
+        
+        # Check if user with this email already exists
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError({'email': 'A user with this email already exists.'})
+        
+        # Use email as username as well
+        user = User.objects.create_user(
+            username=email,
+            email=email,
+            first_name=first_name,
+            **validated_data
+        )
+        user.set_password(password)
+        user.save()
+        return user
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,7 +46,3 @@ class UserSettingsSerializer(serializers.ModelSerializer):
 class UserProfileCompleteSerializer(serializers.Serializer):
     profile = UserProfileSerializer()
     settings = UserSettingsSerializer()
-'''
-{"access_token":"eyJhbGciOiJIUzI1NiIsImtpZCI6IlV2VENSRlZLVTVvU002OWwiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FrcWt5Ymdic3Rtd2tyZ3FubGpmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJmNzZiNmE3MC0xNTU4LTQ4ZWItYWExZi05OGY4ZDRiYTRjMDQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQxOTIzNDIxLCJpYXQiOjE3NDE5MTk4MjEsImVtYWlsIjoidGVzdC51c2VyMTIzQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJ0ZXN0LnVzZXIxMjNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZjc2YjZhNzAtMTU1OC00OGViLWFhMWYtOThmOGQ0YmE0YzA0In0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3NDE5MTk4MjF9XSwic2Vzc2lvbl9pZCI6IjBmOTk3ODVlLWIzZTgtNDZkOC1hZTcxLThmZTBmZDVlMDNlZiIsImlzX2Fub255bW91cyI6ZmFsc2V9.oRUeE5aOK_4l2tJShYQP_aC0mJdrbgx4uOiXn8CQRQU","refresh_token":"LgsEQos-uBMge4Jo0cuEZA","user":{"id":"f76b6a70-1558-48eb-aa1f-98f8d4ba4c04","email":"test.user123@gmail.com","display_name":"Test User","avatar_url":null}}% 
-eyJhbGciOiJIUzI1NiIsImtpZCI6IlV2VENSRlZLVTVvU002OWwiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FrcWt5Ymdic3Rtd2tyZ3FubGpmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJmNzZiNmE3MC0xNTU4LTQ4ZWItYWExZi05OGY4ZDRiYTRjMDQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQxOTIzNDIxLCJpYXQiOjE3NDE5MTk4MjEsImVtYWlsIjoidGVzdC51c2VyMTIzQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJ0ZXN0LnVzZXIxMjNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZjc2YjZhNzAtMTU1OC00OGViLWFhMWYtOThmOGQ0YmE0YzA0In0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3NDE5MTk4MjF9XSwic2Vzc2lvbl9pZCI6IjBmOTk3ODVlLWIzZTgtNDZkOC1hZTcxLThmZTBmZDVlMDNlZiIsImlzX2Fub255bW91cyI6ZmFsc2V9.oRUeE5aOK_4l2tJShYQP_aC0mJdrbgx4uOiXn8CQRQU
-'''

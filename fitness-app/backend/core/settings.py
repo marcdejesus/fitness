@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'channels',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',  # Add this line
     'rest_framework_simplejwt',
     'drf_yasg',
     'storages',
