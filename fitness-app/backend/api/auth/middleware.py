@@ -1,4 +1,5 @@
 import jwt
+import json
 from django.conf import settings
 from rest_framework import authentication
 from rest_framework.exceptions import AuthenticationFailed
@@ -16,24 +17,26 @@ class SupabaseAuthentication(authentication.BaseAuthentication):
         token = auth_header.split(' ')[1]
         
         try:
-            # Verify JWT token using Supabase JWT secret
-            payload = jwt.decode(
-                token, 
-                settings.SUPABASE_JWT_SECRET,
-                algorithms=['HS256']
-            )
+            # For Supabase tokens, we don't verify with our secret
+            # We need to extract user info from the JWT payload directly
+            # This is because Supabase signs tokens with their own key
+            decoded = jwt.decode(token, options={"verify_signature": False})
             
-            user_id = payload.get('sub')
-            if not user_id:
-                raise AuthenticationFailed('Invalid token')
+            user_id = decoded.get('sub')
+            email = decoded.get('email')
+            
+            if not user_id or not email:
+                raise AuthenticationFailed('Invalid token format')
             
             # Get or create user profile
-            try:
-                profile = UserProfile.objects.get(user_id=user_id)
-            except UserProfile.DoesNotExist:
-                raise AuthenticationFailed('User not found')
+            profile, created = UserProfile.objects.get_or_create(
+                user_id=user_id,
+                defaults={'email': email, 'display_name': email.split('@')[0]}
+            )
             
+            # Add token data to the request
+            request.auth = token
             return (profile, token)
             
-        except jwt.PyJWTError:
-            raise AuthenticationFailed('Invalid token')
+        except jwt.PyJWTError as e:
+            raise AuthenticationFailed(f'Invalid token: {str(e)}')

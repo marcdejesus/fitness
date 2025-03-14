@@ -1,0 +1,22 @@
+from rest_framework import serializers
+from .models import UserProfile, UserSettings
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
+        read_only_fields = ['user_id', 'email', 'created_at', 'updated_at']
+
+class UserSettingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserSettings
+        fields = '__all__'
+        read_only_fields = ['user_id', 'created_at', 'updated_at']
+
+class UserProfileCompleteSerializer(serializers.Serializer):
+    profile = UserProfileSerializer()
+    settings = UserSettingsSerializer()
+'''
+{"access_token":"eyJhbGciOiJIUzI1NiIsImtpZCI6IlV2VENSRlZLVTVvU002OWwiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FrcWt5Ymdic3Rtd2tyZ3FubGpmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJmNzZiNmE3MC0xNTU4LTQ4ZWItYWExZi05OGY4ZDRiYTRjMDQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQxOTIzNDIxLCJpYXQiOjE3NDE5MTk4MjEsImVtYWlsIjoidGVzdC51c2VyMTIzQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJ0ZXN0LnVzZXIxMjNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZjc2YjZhNzAtMTU1OC00OGViLWFhMWYtOThmOGQ0YmE0YzA0In0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3NDE5MTk4MjF9XSwic2Vzc2lvbl9pZCI6IjBmOTk3ODVlLWIzZTgtNDZkOC1hZTcxLThmZTBmZDVlMDNlZiIsImlzX2Fub255bW91cyI6ZmFsc2V9.oRUeE5aOK_4l2tJShYQP_aC0mJdrbgx4uOiXn8CQRQU","refresh_token":"LgsEQos-uBMge4Jo0cuEZA","user":{"id":"f76b6a70-1558-48eb-aa1f-98f8d4ba4c04","email":"test.user123@gmail.com","display_name":"Test User","avatar_url":null}}% 
+eyJhbGciOiJIUzI1NiIsImtpZCI6IlV2VENSRlZLVTVvU002OWwiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FrcWt5Ymdic3Rtd2tyZ3FubGpmLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiJmNzZiNmE3MC0xNTU4LTQ4ZWItYWExZi05OGY4ZDRiYTRjMDQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzQxOTIzNDIxLCJpYXQiOjE3NDE5MTk4MjEsImVtYWlsIjoidGVzdC51c2VyMTIzQGdtYWlsLmNvbSIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWwiOiJ0ZXN0LnVzZXIxMjNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiZjc2YjZhNzAtMTU1OC00OGViLWFhMWYtOThmOGQ0YmE0YzA0In0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3NDE5MTk4MjF9XSwic2Vzc2lvbl9pZCI6IjBmOTk3ODVlLWIzZTgtNDZkOC1hZTcxLThmZTBmZDVlMDNlZiIsImlzX2Fub255bW91cyI6ZmFsc2V9.oRUeE5aOK_4l2tJShYQP_aC0mJdrbgx4uOiXn8CQRQU
+'''
