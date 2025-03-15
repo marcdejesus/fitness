@@ -11,7 +11,14 @@
     "dev": "concurrently \"npm run dev:web\" \"npm run dev:backend\"",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "test:e2e": "start-server-and-test dev http://localhost:3000 cypress:run"
+    "test:e2e": "start-server-and-test dev http://localhost:3000 cypress:run",
+    "test:nutrition": "cypress run --spec \"cypress/e2e/nutrition_tracking.cy.js\"",
+    "test:nutrition:mocked": "cypress run --spec \"cypress/e2e/nutrition_tracking_mocked.cy.js\"",
+    "test:nutrition:all": "cypress run --spec \"cypress/e2e/nutrition_*.cy.js\"",
+    "test": "./scripts/run-tests.sh",
+    "test:open": "./scripts/run-tests.sh --open",
+    "test:mocked": "./scripts/run-tests.sh --mocked",
+    "test:real": "./scripts/run-tests.sh --real"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

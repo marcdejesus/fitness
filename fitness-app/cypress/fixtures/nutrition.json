@@ -1,0 +1,226 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Fruits",
+      "description": "Fresh and dried fruits"
+    },
+    {
+      "id": "2",
+      "name": "Vegetables",
+      "description": "Fresh and cooked vegetables"
+    },
+    {
+      "id": "3",
+      "name": "Protein",
+      "description": "Meat, fish, eggs, and plant-based proteins"
+    },
+    {
+      "id": "4",
+      "name": "Dairy",
+      "description": "Milk, cheese, and other dairy products"
+    },
+    {
+      "id": "5",
+      "name": "Grains",
+      "description": "Bread, pasta, rice, and other grains"
+    },
+    {
+      "id": "6",
+      "name": "Snacks",
+      "description": "Chips, crackers, and other snack foods"
+    }
+  ],
+  "foods": [
+    {
+      "id": "1",
+      "name": "Apple",
+      "brand": "Generic",
+      "category": "1",
+      "category_name": "Fruits",
+      "serving_size": 100,
+      "serving_unit": "g",
+      "calories": 52,
+      "protein": 0.3,
+      "carbs": 14,
+      "fat": 0.2,
+      "fiber": 2.4,
+      "sugar": 10.3,
+      "sodium": 1,
+      "is_verified": true,
+      "is_custom": false,
+      "created_by": null,
+      "barcode": "",
+      "created_at": "2023-01-01T00:00:00Z",
+      "updated_at": "2023-01-01T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "name": "Banana",
+      "brand": "Generic",
+      "category": "1",
+      "category_name": "Fruits",
+      "serving_size": 100,
+      "serving_unit": "g",
+      "calories": 89,
+      "protein": 1.1,
+      "carbs": 22.8,
+      "fat": 0.3,
+      "fiber": 2.6,
+      "sugar": 12.2,
+      "sodium": 1,
+      "is_verified": true,
+      "is_custom": false,
+      "created_by": null,
+      "barcode": "",
+      "created_at": "2023-01-01T00:00:00Z",
+      "updated_at": "2023-01-01T00:00:00Z"
+    },
+    {
+      "id": "3",
+      "name": "Chicken Breast",
+      "brand": "Generic",
+      "category": "3",
+      "category_name": "Protein",
+      "serving_size": 100,
+      "serving_unit": "g",
+      "calories": 165,
+      "protein": 31,
+      "carbs": 0,
+      "fat": 3.6,
+      "fiber": 0,
+      "sugar": 0,
+      "sodium": 74,
+      "is_verified": true,
+      "is_custom": false,
+      "created_by": null,
+      "barcode": "",
+      "created_at": "2023-01-01T00:00:00Z",
+      "updated_at": "2023-01-01T00:00:00Z"
+    }
+  ],
+  "mealTypes": [
+    {
+      "id": "1",
+      "name": "Breakfast",
+      "order": 1
+    },
+    {
+      "id": "2",
+      "name": "Lunch",
+      "order": 2
+    },
+    {
+      "id": "3",
+      "name": "Dinner",
+      "order": 3
+    },
+    {
+      "id": "4",
+      "name": "Snack",
+      "order": 4
+    }
+  ],
+  "dailySummary": {
+    "date": "2023-06-01",
+    "total_calories": 1200,
+    "total_protein": 75,
+    "total_carbs": 120,
+    "total_fat": 45,
+    "total_fiber": 25,
+    "total_sugar": 30,
+    "total_sodium": 1500,
+    "calorie_goal": 2000,
+    "protein_goal": 150,
+    "carbs_goal": 200,
+    "fat_goal": 65,
+    "calorie_progress": 60,
+    "protein_progress": 50,
+    "carbs_progress": 60,
+    "fat_progress": 69,
+    "meals": {
+      "Breakfast": [
+        {
+          "id": "1",
+          "user_id": "user123",
+          "food_item": "1",
+          "food_item_details": {
+            "id": "1",
+            "name": "Apple",
+            "brand": "Generic",
+            "category": "1",
+            "category_name": "Fruits",
+            "serving_size": 100,
+            "serving_unit": "g",
+            "calories": 52,
+            "protein": 0.3,
+            "carbs": 14,
+            "fat": 0.2,
+            "fiber": 2.4,
+            "sugar": 10.3,
+            "sodium": 1,
+            "is_verified": true,
+            "is_custom": false,
+            "created_by": null,
+            "barcode": "",
+            "created_at": "2023-01-01T00:00:00Z",
+            "updated_at": "2023-01-01T00:00:00Z"
+          },
+          "meal_type": "1",
+          "meal_type_name": "Breakfast",
+          "date": "2023-06-01",
+          "time": "08:00:00",
+          "servings": 1,
+          "calories": 52,
+          "protein": 0.3,
+          "carbs": 14,
+          "fat": 0.2,
+          "fiber": 2.4,
+          "sugar": 10.3,
+          "sodium": 1,
+          "notes": "",
+          "created_at": "2023-06-01T08:00:00Z",
+          "updated_at": "2023-06-01T08:00:00Z"
+        }
+      ]
+    }
+  },
+  "favorites": [
+    {
+      "id": "2",
+      "name": "Banana",
+      "brand": "Generic",
+      "category": "1",
+      "category_name": "Fruits",
+      "serving_size": 100,
+      "serving_unit": "g",
+      "calories": 89,
+      "protein": 1.1,
+      "carbs": 22.8,
+      "fat": 0.3,
+      "fiber": 2.6,
+      "sugar": 12.2,
+      "sodium": 1,
+      "is_verified": true,
+      "is_custom": false,
+      "created_by": null,
+      "barcode": "",
+      "created_at": "2023-01-01T00:00:00Z",
+      "updated_at": "2023-01-01T00:00:00Z"
+    }
+  ],
+  "nutritionGoal": {
+    "id": "1",
+    "user_id": "user123",
+    "calorie_target": 2000,
+    "protein_target": 150,
+    "carbs_target": 200,
+    "fat_target": 65,
+    "fiber_target": 25,
+    "sugar_target": 50,
+    "sodium_target": 2300,
+    "goal_type": "maintain",
+    "created_at": "2023-01-01T00:00:00Z",
+    "updated_at": "2023-01-01T00:00:00Z"
+  }
+} 

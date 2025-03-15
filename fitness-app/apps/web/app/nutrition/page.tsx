@@ -304,16 +304,16 @@ export default function NutritionPage() {
       <Card shadow="sm" p="md" radius="md" withBorder mb="lg">
         <Group justify="space-between">
           <Group>
-            <ActionIcon variant="subtle" onClick={goToPreviousDay}>
+            <ActionIcon variant="subtle" onClick={goToPreviousDay} data-testid="previous-day">
               <IconChevronLeft size={20} />
             </ActionIcon>
             <Text fw={500} size="lg">{formatDateDisplay(selectedDate)}</Text>
-            <ActionIcon variant="subtle" onClick={goToNextDay}>
+            <ActionIcon variant="subtle" onClick={goToNextDay} data-testid="next-day">
               <IconChevronRight size={20} />
             </ActionIcon>
           </Group>
           <Group>
-            <Button variant="subtle" leftSection={<IconCalendar size={16} />} onClick={goToToday}>
+            <Button variant="subtle" leftSection={<IconCalendar size={16} />} onClick={goToToday} data-testid="today-button">
               Today
             </Button>
             <DatePickerInput
@@ -321,6 +321,7 @@ export default function NutritionPage() {
               onChange={handleDateChange}
               valueFormat="YYYY-MM-DD"
               placeholder="Pick date"
+              data-testid="date-picker"
             />
           </Group>
         </Group>
@@ -449,7 +450,7 @@ export default function NutritionPage() {
               
               {Object.entries(dailySummary.meals).map(([mealType, entries]) => (
                 <Tabs.Panel key={mealType} value={mealType} pt="md">
-                  <Stack gap="md">
+                  <Stack gap="md" data-testid="meal-list">
                     {entries.map(entry => (
                       <Paper key={entry.id} withBorder p="md" radius="md">
                         <Group justify="space-between" wrap="nowrap">
@@ -473,6 +474,7 @@ export default function NutritionPage() {
                               variant="subtle" 
                               color="red"
                               onClick={() => handleDeleteMealEntry(entry.id)}
+                              data-testid="delete-meal-button"
                             >
                               <IconTrash size={16} />
                             </ActionIcon>

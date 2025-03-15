@@ -1,6 +1,10 @@
 {
-  "/auth/signin/page": "app/auth/signin/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
+  "/auth/signin/page": "app/auth/signin/page.js",
   "/nutrition/page": "app/nutrition/page.js",
-  "/workouts/page": "app/workouts/page.js"
+  "/nutrition/create/page": "app/nutrition/create/page.js",
+  "/nutrition/stats/page": "app/nutrition/stats/page.js",
+  "/workouts/page": "app/workouts/page.js",
+  "/workouts/create/page": "app/workouts/create/page.js"
 }

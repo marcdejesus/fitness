@@ -153,6 +153,7 @@ export default function FoodSearch({ onFoodSelect }: FoodSearchProps) {
           onChange={(e) => setSearchQuery(e.currentTarget.value)}
           style={{ flex: 1 }}
           onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+          data-testid="food-search-input"
         />
         
         <Select
@@ -163,12 +164,14 @@ export default function FoodSearch({ onFoodSelect }: FoodSearchProps) {
           onChange={setSelectedCategory}
           clearable
           style={{ minWidth: 150 }}
+          data-testid="category-select"
         />
         
         <Button 
           leftSection={<IconSearch size={16} />} 
           onClick={handleSearch}
           loading={isSearching}
+          data-testid="search-button"
         >
           Search
         </Button>
@@ -190,7 +193,7 @@ export default function FoodSearch({ onFoodSelect }: FoodSearchProps) {
           <Loader />
         </Box>
       ) : (
-        <Stack mt="md">
+        <Stack mt="md" data-testid="food-search-results">
           {searchResults.length > 0 ? (
             searchResults.map(food => (
               <Card key={food.id} shadow="sm" p="sm" radius="md" withBorder>
@@ -203,6 +206,7 @@ export default function FoodSearch({ onFoodSelect }: FoodSearchProps) {
                           color="yellow" 
                           variant="subtle"
                           onClick={() => toggleFavorite(food)}
+                          data-testid={favorites.includes(food.id) ? "star-filled-icon" : "star-icon"}
                         >
                           {favorites.includes(food.id) ? <IconStarFilled size={16} /> : <IconStar size={16} />}
                         </ActionIcon>
@@ -229,6 +233,7 @@ export default function FoodSearch({ onFoodSelect }: FoodSearchProps) {
                     variant="light" 
                     size="xs"
                     onClick={() => onFoodSelect(food)}
+                    data-testid="add-food-button"
                   >
                     Add
                   </Button>
