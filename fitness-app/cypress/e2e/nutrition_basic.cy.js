@@ -1,5 +1,5 @@
-// Nutrition tracking tests with mocked API responses
-describe('Nutrition Tracking (Mocked)', function() {
+// Basic nutrition tracking tests with mocked API responses
+describe('Nutrition Tracking Basic Tests', function() {
   beforeEach(function() {
     // Login before each test using localStorage method
     cy.loginByLocalStorage();
@@ -33,57 +33,6 @@ describe('Nutrition Tracking (Mocked)', function() {
         statusCode: 200,
         body: nutritionData.dailySummary
       }).as('getDailySummary');
-      
-      cy.intercept('POST', '**/api/nutrition/meals/**', (req) => {
-        req.reply({
-          statusCode: 200,
-          body: {
-            id: 'new-meal-id',
-            ...req.body,
-            calories: 52,
-            protein: 0.3,
-            carbs: 14,
-            fat: 0.2
-          }
-        });
-      }).as('createMealEntry');
-      
-      cy.intercept('POST', '**/api/nutrition/foods/*/favorite/**', { 
-        statusCode: 200 
-      }).as('addToFavorites');
-      
-      cy.intercept('POST', '**/api/nutrition/foods/*/unfavorite/**', { 
-        statusCode: 200 
-      }).as('removeFromFavorites');
-      
-      cy.intercept('DELETE', '**/api/nutrition/meals/**', { 
-        statusCode: 200 
-      }).as('deleteMealEntry');
-      
-      cy.intercept('POST', '**/api/nutrition/foods/**', (req) => {
-        req.reply({
-          statusCode: 200,
-          body: {
-            id: 'new-food-id',
-            ...req.body,
-            is_verified: false,
-            is_custom: true,
-            created_by: 'user123',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          }
-        });
-      }).as('createCustomFood');
-      
-      cy.intercept('PATCH', '**/api/nutrition/goals/**', (req) => {
-        req.reply({
-          statusCode: 200,
-          body: {
-            ...nutritionData.nutritionGoal,
-            ...req.body
-          }
-        });
-      }).as('updateGoals');
     });
   });
 
@@ -108,8 +57,8 @@ describe('Nutrition Tracking (Mocked)', function() {
     cy.wait('@getMealTypes');
     cy.wait('@getDailySummary');
     
-    // Click the "Add Custom Food" button with force option
-    cy.contains('button', 'Add Custom Food').should('be.visible').click({ force: true });
+    // Click the "Add Custom Food" button
+    cy.contains('Add Custom Food').click();
     
     // Verify navigation to the custom food page
     cy.url().should('include', '/nutrition/create');

@@ -14,7 +14,7 @@ DEBUG = True  # Set to False in production
 ROOT_URLCONF = 'core.urls'
 
 # SECURITY WARNING: update this when you deploy to production!
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.0.0.158']
 
 #CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = True  # For development only, restrict in production
