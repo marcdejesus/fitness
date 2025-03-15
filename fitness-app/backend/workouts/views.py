@@ -52,7 +52,10 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     
     def get_queryset(self):
         """Get workouts for the current user"""
-        return Workout.objects.filter(user_id=self.request.user.user_id)
+        # Get the user_id from the authenticated user
+        user_id = self.request.user.user_id
+        print(f"Filtering workouts for user_id: {user_id}")
+        return Workout.objects.filter(user_id=user_id)
     
     def get_serializer_class(self):
         """Use different serializers for list/retrieve vs create/update"""
@@ -62,7 +65,9 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         """Set user_id when creating a workout"""
-        serializer.save(user_id=self.request.user.user_id)
+        user_id = self.request.user.user_id
+        print(f"Creating workout for user_id: {user_id}")
+        serializer.save(user_id=user_id)
     
     @action(detail=False, methods=['get'])
     def stats(self, request):
@@ -125,6 +130,8 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         user_id = request.user.user_id
         days = int(request.query_params.get('days', 30))
         
+        print(f"Fetching workout history for user_id: {user_id}, days: {days}")
+        
         # Calculate date range
         end_date = timezone.now().date()
         start_date = end_date - timedelta(days=days)
@@ -134,6 +141,8 @@ class WorkoutViewSet(viewsets.ModelViewSet):
             date__gte=start_date,
             date__lte=end_date
         ).order_by('date')
+        
+        print(f"Found {workouts.count()} workouts for user_id: {user_id}")
         
         return Response(WorkoutSerializer(workouts, many=True).data)
 

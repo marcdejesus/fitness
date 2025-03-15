@@ -46,117 +46,64 @@ export default function WorkoutHistory() {
       
       setLoading(true);
       try {
-        // Try different URL formats for the workout history endpoint - without query params first
-        const urlFormats = [
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/history`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/history`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/history/`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/history/`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/history/?days=90`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/history/?days=90`
-        ];
-        
-        let response = null;
-        let errorMessages = [];
-        let successfulUrl = '';
-        let successfulFormat = '';
-        
-        // Try both token formats for each URL
-        for (const url of urlFormats) {
-          // Try with Token format
-          try {
-            console.log(`Trying workout history API URL: ${url} with Token format`);
-            
-            const resp = await fetch(url, {
-              headers: {
-                'Authorization': `Token ${token}`,
-                'Content-Type': 'application/json'
-              }
-            });
-            
-            console.log(`Response status for ${url} with Token format: ${resp.status}`);
-            
-            if (resp.ok) {
-              response = resp;
-              successfulUrl = url;
-              successfulFormat = 'Token';
-              break;
-            } else {
-              const errorText = await resp.text();
-              errorMessages.push(`API Error for ${url} with Token format: ${resp.status} - ${errorText}`);
-            }
-          } catch (err: any) {
-            errorMessages.push(`Network error for ${url} with Token format: ${err.message}`);
-          }
-          
-          // Try with Bearer format
-          try {
-            console.log(`Trying workout history API URL: ${url} with Bearer format`);
-            
-            const resp = await fetch(url, {
-              headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-              }
-            });
-            
-            console.log(`Response status for ${url} with Bearer format: ${resp.status}`);
-            
-            if (resp.ok) {
-              response = resp;
-              successfulUrl = url;
-              successfulFormat = 'Bearer';
-              break;
-            } else {
-              const errorText = await resp.text();
-              errorMessages.push(`API Error for ${url} with Bearer format: ${resp.status} - ${errorText}`);
-            }
-          } catch (err: any) {
-            errorMessages.push(`Network error for ${url} with Bearer format: ${err.message}`);
-          }
+        // Basic validation of token format
+        if (typeof token !== 'string' || token.length < 10) {
+          console.error("Token appears to be invalid:", token);
+          setError("Your authentication token appears to be invalid. Please try logging in again.");
+          setLoading(false);
+          return;
         }
         
-        if (!response) {
-          console.error('All URL formats failed:', errorMessages);
+        // Use the correct URL format for the workout history endpoint
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/history/`;
+        
+        console.log(`Trying workout history API URL: ${url}`);
+        
+        // Use Token format consistently
+        try {
+          console.log('Making request with Token format');
+          const response = await fetch(url, {
+            headers: {
+              'Authorization': `Token ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
           
-          // Check if all errors are 403 or 404, which might indicate the endpoint doesn't exist
-          const all403or404 = errorMessages.every(msg => 
-            msg.includes('403') || msg.includes('404')
-          );
+          console.log(`Response status: ${response.status}`);
           
-          if (all403or404) {
-            console.log('All endpoints returned 403 or 404, assuming no workouts available');
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`API Error: ${response.status} - ${errorText}`);
+            
+            if (response.status === 401 || response.status === 403) {
+              throw new Error('Authentication failed. Please try logging in again.');
+            } else {
+              throw new Error(`API request failed with status: ${response.status}`);
+            }
+          }
+          
+          // If we got a successful response, process the data
+          const data = await response.json();
+          console.log('Workout history data received:', data);
+          
+          // Handle different response formats
+          if (Array.isArray(data)) {
+            setWorkouts(data);
+          } else if (data.results && Array.isArray(data.results)) {
+            setWorkouts(data.results);
+          } else if (data.workouts && Array.isArray(data.workouts)) {
+            setWorkouts(data.workouts);
+          } else {
+            console.log('Unexpected data format:', data);
             setWorkouts([]);
-            setLoading(false);
-            return;
           }
-          
-          throw new Error('Failed to fetch workout history: All URL formats failed');
+        } catch (err) {
+          console.error('Error fetching workout history:', err);
+          throw err;
         }
-        
-        console.log(`Successfully fetched data from ${successfulUrl} with ${successfulFormat} format`);
-        
-        const data = await response.json();
-        console.log('Workout history data received:', data);
-        
-        // Handle different response formats
-        if (Array.isArray(data)) {
-          setWorkouts(data);
-        } else if (data.results && Array.isArray(data.results)) {
-          setWorkouts(data.results);
-        } else if (data.workouts && Array.isArray(data.workouts)) {
-          setWorkouts(data.workouts);
-        } else {
-          console.log('Unexpected data format:', data);
-          setWorkouts([]);
-        }
-      } catch (error) {
-        console.error('Error fetching workout history:', error);
-        setError('Unable to load workout history. Please try again later.');
+      } catch (error: any) {
+        console.error('Error in workout history flow:', error);
+        setError(error.message || 'Unable to load workout history. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -223,14 +170,25 @@ export default function WorkoutHistory() {
   const workoutsByMonth: Record<string, Workout[]> = {};
   
   workouts.forEach(workout => {
-    const date = new Date(workout.date);
-    const monthYear = format(date, 'MMMM yyyy');
-    
-    if (!workoutsByMonth[monthYear]) {
-      workoutsByMonth[monthYear] = [];
+    try {
+      const date = new Date(workout.date);
+      // Check if date is valid
+      if (isNaN(date.getTime())) {
+        console.error('Invalid date:', workout.date);
+        return; // Skip this workout
+      }
+      
+      const monthYear = format(date, 'MMMM yyyy');
+      
+      if (!workoutsByMonth[monthYear]) {
+        workoutsByMonth[monthYear] = [];
+      }
+      
+      workoutsByMonth[monthYear].push(workout);
+    } catch (error) {
+      console.error('Error processing workout date:', error, workout);
+      // Skip this workout
     }
-    
-    workoutsByMonth[monthYear].push(workout);
   });
   
   return (
@@ -261,7 +219,16 @@ export default function WorkoutHistory() {
                 <Group mt="md" mb="xs">
                   <Group gap="xs">
                     <IconCalendar size={16} />
-                    <Text size="sm">{format(new Date(workout.date), 'EEEE, MMM d')}</Text>
+                    <Text size="sm">
+                      {(() => {
+                        try {
+                          return format(new Date(workout.date), 'EEEE, MMM d');
+                        } catch (error) {
+                          console.error('Error formatting date:', error, workout.date);
+                          return 'Invalid date';
+                        }
+                      })()}
+                    </Text>
                   </Group>
                   <Group gap="xs">
                     <IconClock size={16} />

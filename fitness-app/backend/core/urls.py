@@ -22,4 +22,6 @@ urlpatterns = [
     path('api/', include('api.urls')),
     # Use 'api/workouts/' prefix for all workout endpoints
     path('api/workouts/', include('workouts.urls')),
+    # Use 'api/nutrition/' prefix for all nutrition endpoints
+    path('api/nutrition/', include('api.nutrition.urls')),
 ]

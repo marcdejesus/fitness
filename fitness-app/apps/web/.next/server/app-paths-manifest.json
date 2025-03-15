@@ -1,7 +1,6 @@
 {
-  "/profile/page": "app/profile/page.js",
-  "/page": "app/page.js",
   "/auth/signin/page": "app/auth/signin/page.js",
-  "/workouts/page": "app/workouts/page.js",
-  "/workouts/create/page": "app/workouts/create/page.js"
+  "/page": "app/page.js",
+  "/nutrition/page": "app/nutrition/page.js",
+  "/workouts/page": "app/workouts/page.js"
 }

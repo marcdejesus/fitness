@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'storages',
     'api',
     'workouts',  # Add this line
+    'api.nutrition.apps.NutritionConfig',  # Use the proper app config
 ]
 
 MIDDLEWARE = [
@@ -56,8 +57,10 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'api.auth.middleware.SimpleTokenAuthentication',
         'api.auth.middleware.SupabaseAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',

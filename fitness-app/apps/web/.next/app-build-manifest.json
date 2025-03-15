@@ -11,11 +11,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/profile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/profile/page.js"
-    ],
     "/auth/signin/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -31,10 +26,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/workouts/page.js"
     ],
-    "/workouts/create/page": [
+    "/nutrition/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/workouts/create/page.js"
+      "static/chunks/app/nutrition/page.js"
     ]
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Box, Button, NumberInput, TextInput, Group, Table, ActionIcon, Text, Alert } from '@mantine/core';
 import { IconTrash, IconPlus, IconAlertCircle } from '@tabler/icons-react';
 
@@ -26,29 +26,34 @@ export default function SetRecorder({
   onSaveSets, 
   initialSets = [] 
 }: SetRecorderProps) {
+  // Use a ref to store the initial sets to avoid re-renders
+  const initialSetsRef = useRef<WorkoutSet[]>(initialSets);
+  // Use a ref to track if this is the first render
+  const isFirstRender = useRef(true);
+  // Use a ref to track the previous exerciseId
+  const prevExerciseIdRef = useRef(exerciseId);
+  
   const [sets, setSets] = useState<WorkoutSet[]>([]);
   const [currentSet, setCurrentSet] = useState<WorkoutSet>({ exercise_id: exerciseId });
   const [error, setError] = useState<string | null>(null);
   
-  // Initialize sets properly
+  // Initialize sets only once on mount or when exerciseId changes
   useEffect(() => {
-    // Only set the state if initialSets has changed and is different from current sets
-    // This prevents infinite loops by avoiding unnecessary state updates
-    const initialSetsJson = JSON.stringify(initialSets);
-    const currentSetsJson = JSON.stringify(sets);
-    
-    if (initialSetsJson !== currentSetsJson) {
-      if (initialSets.length > 0) {
-        setSets(initialSets);
-      } else if (sets.length === 0) {
-        // Only set empty array if sets is not already empty
-        setSets([]);
+    // Only run initialization logic on first render
+    if (isFirstRender.current) {
+      if (initialSetsRef.current.length > 0) {
+        setSets(initialSetsRef.current);
       }
+      isFirstRender.current = false;
+      return;
     }
     
-    // Reset current set when exercise changes
-    setCurrentSet({ exercise_id: exerciseId });
-  }, [exerciseId, initialSets]);
+    // If exerciseId changes, reset the current set
+    if (prevExerciseIdRef.current !== exerciseId) {
+      setCurrentSet({ exercise_id: exerciseId });
+      prevExerciseIdRef.current = exerciseId;
+    }
+  }, [exerciseId]);
 
   const addSet = () => {
     setError(null);
@@ -67,14 +72,16 @@ export default function SetRecorder({
       id: `temp-${Date.now()}`
     };
     
-    setSets([...sets, newSet]);
+    setSets(prevSets => [...prevSets, newSet]);
     setCurrentSet({ exercise_id: exerciseId });
   };
   
   const removeSet = (index: number) => {
-    const newSets = [...sets];
-    newSets.splice(index, 1);
-    setSets(newSets);
+    setSets(prevSets => {
+      const newSets = [...prevSets];
+      newSets.splice(index, 1);
+      return newSets;
+    });
   };
   
   const saveSets = () => {
@@ -164,7 +171,7 @@ export default function SetRecorder({
             <NumberInput
               label="Weight"
               value={currentSet.weight || ''}
-              onChange={(value) => setCurrentSet({ ...currentSet, weight: Number(value) })}
+              onChange={(value) => setCurrentSet(prev => ({ ...prev, weight: Number(value) }))}
               min={0}
               step={2.5}
               decimalScale={1}
@@ -177,7 +184,7 @@ export default function SetRecorder({
             <NumberInput
               label="Reps"
               value={currentSet.reps || ''}
-              onChange={(value) => setCurrentSet({ ...currentSet, reps: Number(value) })}
+              onChange={(value) => setCurrentSet(prev => ({ ...prev, reps: Number(value) }))}
               min={1}
               w={120}
               onKeyDown={handleKeyDown}
@@ -188,7 +195,7 @@ export default function SetRecorder({
             <NumberInput
               label="Duration (min)"
               value={currentSet.duration || ''}
-              onChange={(value) => setCurrentSet({ ...currentSet, duration: Number(value) })}
+              onChange={(value) => setCurrentSet(prev => ({ ...prev, duration: Number(value) }))}
               min={1}
               decimalScale={1}
               w={120}
@@ -199,7 +206,7 @@ export default function SetRecorder({
           <TextInput
             label="Notes (optional)"
             value={currentSet.notes || ''}
-            onChange={(e) => setCurrentSet({ ...currentSet, notes: e.target.value })}
+            onChange={(e) => setCurrentSet(prev => ({ ...prev, notes: e.target.value }))}
             w={200}
             onKeyDown={handleKeyDown}
           />

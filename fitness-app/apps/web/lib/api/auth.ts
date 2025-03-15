@@ -38,6 +38,19 @@ const authApi = {
   signIn: async (data: SignInData): Promise<AuthResponse> => {
     const response = await axios.post(`${API_URL}/api/auth/login/`, data);
     console.log('Sign in response:', response.data);
+    
+    // If the token doesn't include the user ID, add it
+    let token = response.data.token;
+    const userId = response.data.user.id;
+    
+    // If the token doesn't already contain the user ID, prepend it
+    if (token && userId && !token.includes(userId)) {
+      // Format: userId:token
+      token = `${userId}:${token}`;
+      response.data.token = token;
+    }
+    
+    console.log('Enhanced token with user ID:', token);
     return response.data;
   },
   

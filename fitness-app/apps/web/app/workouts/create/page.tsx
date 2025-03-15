@@ -59,7 +59,7 @@ export default function CreateWorkout() {
   const [workout, setWorkout] = useState({
     name: '',
     date: new Date(),
-    start_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+    start_time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }),
     duration: 60,
     notes: ''
   });
@@ -107,52 +107,95 @@ export default function CreateWorkout() {
     setError(null);
     
     try {
+      // Format the date properly
+      const formattedDate = workout.date.toISOString().split('T')[0];
+      
+      // Ensure start_time is in the correct format (HH:MM)
+      // If it's already in the correct format, use it as is
+      let formattedTime = workout.start_time;
+      if (formattedTime.includes(':')) {
+        // Make sure it's just HH:MM without seconds
+        formattedTime = formattedTime.split(':').slice(0, 2).join(':');
+      }
+      
+      console.log('Submitting workout with data:', {
+        name: workout.name,
+        date: formattedDate,
+        start_time: formattedTime,
+        duration: workout.duration,
+        notes: workout.notes
+      });
+      
       // Create workout
-      const workoutResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/workouts/`, {
+      const workoutResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Token ${token}`
         },
         body: JSON.stringify({
           name: workout.name,
-          date: workout.date.toISOString().split('T')[0],
-          start_time: workout.start_time,
+          date: formattedDate,
+          start_time: formattedTime,
           duration: workout.duration,
           notes: workout.notes
         })
       });
       
       if (!workoutResponse.ok) {
-        throw new Error('Failed to create workout');
+        const errorText = await workoutResponse.text();
+        console.error(`API Error: ${workoutResponse.status} - ${errorText}`);
+        throw new Error(`Failed to create workout: ${workoutResponse.status} - ${errorText}`);
       }
       
       const workoutData = await workoutResponse.json();
+      console.log('Workout created successfully:', workoutData);
       
       // Create workout sets
-      await Promise.all(workoutSets.map(set => 
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/workouts/${workoutData.id}/sets/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            exercise: set.exercise_id,
-            weight: set.weight,
-            reps: set.reps,
-            duration: set.duration,
-            notes: set.notes
-          })
-        })
-      ));
+      const setPromises = workoutSets.map(async (set, index) => {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/${workoutData.id}/sets/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${token}`
+            },
+            body: JSON.stringify({
+              exercise: set.exercise_id,
+              set_number: index + 1,
+              weight: set.weight || null,
+              reps: set.reps || null,
+              duration: set.duration || null,
+              notes: set.notes || ''
+            })
+          });
+          
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`API Error for set: ${response.status} - ${errorText}`);
+            return { success: false, error: errorText };
+          }
+          
+          return { success: true };
+        } catch (error: any) {
+          console.error('Error creating set:', error);
+          return { success: false, error: error.message };
+        }
+      });
+      
+      const setResults = await Promise.all(setPromises);
+      const failedSets = setResults.filter(result => !result.success);
+      
+      if (failedSets.length > 0) {
+        console.warn(`${failedSets.length} sets failed to save, but workout was created`);
+      }
       
       // Redirect to workout detail or history
       router.push('/workouts');
       
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating workout:', error);
-      setError('Failed to save workout. Please try again.');
+      setError(error.message || 'Failed to save workout. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -245,6 +288,7 @@ export default function CreateWorkout() {
               size="md"
               radius="md"
               leftSection={<IconClock size={18} />}
+              withSeconds={false}
             />
           </SimpleGrid>
           
@@ -291,6 +335,26 @@ export default function CreateWorkout() {
         <Card shadow="sm" radius="md" withBorder p="xl">
           <Title order={3} mb={20}>Select Exercise</Title>
           <ExerciseSelector onSelectExercise={handleSelectExercise} />
+          
+          {workoutSets.length > 0 && (
+            <Box mt={30}>
+              <Divider my={20} />
+              <Group justify="space-between">
+                <Text fw={500} size="lg">
+                  {workoutSets.length} sets added across {Array.from(new Set(workoutSets.map(set => set.exercise_id))).length} exercises
+                </Text>
+                <Button 
+                  color="green" 
+                  size="md"
+                  radius="md"
+                  leftSection={<IconCheck size={18} />}
+                  onClick={() => setActiveStep(3)}
+                >
+                  Finish Workout
+                </Button>
+              </Group>
+            </Box>
+          )}
         </Card>
       )}
       

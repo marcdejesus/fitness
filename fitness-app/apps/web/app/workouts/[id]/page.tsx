@@ -85,13 +85,13 @@ export default function WorkoutDetail() {
         
         // Try different URL formats with more variations
         const urlFormats = [
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/${params.id}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/${params.id}`,
           `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/${params.id}/`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/${params.id}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/detail/${params.id}/`,
+          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/workouts/detail/${params.id}`,
+          // Legacy formats for backward compatibility
           `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/${params.id}/`,
-          // Try additional endpoint variations
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/detail/${params.id}`,
-          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/detail/${params.id}/`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/workouts/${params.id}`
         ];
         
         let response = null;
@@ -196,7 +196,23 @@ export default function WorkoutDetail() {
         
         const data = await response.json();
         console.log('Workout data received:', data);
-        setWorkout(data);
+        
+        // Ensure the data has the expected structure and valid formats
+        const processedData = {
+          ...data,
+          // Ensure sets is always an array
+          sets: Array.isArray(data.sets) ? data.sets : [],
+          // Ensure date is valid
+          date: data.date || new Date().toISOString().split('T')[0],
+          // Ensure start_time is valid
+          start_time: data.start_time || '00:00',
+          // Ensure duration is a number
+          duration: typeof data.duration === 'number' ? data.duration : 0,
+          // Ensure notes is a string
+          notes: data.notes || ''
+        };
+        
+        setWorkout(processedData);
       } catch (error) {
         console.error('Error fetching workout details:', error);
         setError('Unable to load workout details. Please try again later.');
@@ -268,15 +284,18 @@ export default function WorkoutDetail() {
   // Group sets by exercise
   const exerciseGroups: Record<string, WorkoutSet[]> = {};
   
-  workout.sets.forEach(set => {
-    if (!exerciseGroups[set.exercise_name]) {
-      exerciseGroups[set.exercise_name] = [];
-    }
-    exerciseGroups[set.exercise_name].push(set);
-  });
+  // Ensure workout.sets exists before trying to use forEach
+  if (workout.sets && Array.isArray(workout.sets)) {
+    workout.sets.forEach(set => {
+      if (!exerciseGroups[set.exercise_name]) {
+        exerciseGroups[set.exercise_name] = [];
+      }
+      exerciseGroups[set.exercise_name].push(set);
+    });
+  }
 
   // Calculate total volume (for strength exercises)
-  const totalVolume = workout.sets.reduce((total, set) => {
+  const totalVolume = (workout.sets || []).reduce((total, set) => {
     if (set.weight && set.reps) {
       return total + (set.weight * set.reps);
     }
@@ -284,7 +303,7 @@ export default function WorkoutDetail() {
   }, 0);
 
   // Calculate total cardio minutes
-  const totalCardioMinutes = workout.sets.reduce((total, set) => {
+  const totalCardioMinutes = (workout.sets || []).reduce((total, set) => {
     if (set.duration) {
       return total + set.duration;
     }
@@ -333,7 +352,18 @@ export default function WorkoutDetail() {
                 <ThemeIcon size={30} radius="md" variant="light">
                   <IconCalendar size={18} />
                 </ThemeIcon>
-                <Text>{format(new Date(workout.date), 'EEEE, MMMM d, yyyy')}</Text>
+                <Text>
+                  {(() => {
+                    try {
+                      // Validate that workout.date is a valid date string
+                      if (!workout.date) return 'No date available';
+                      return format(new Date(workout.date), 'EEEE, MMMM d, yyyy');
+                    } catch (error) {
+                      console.error('Error formatting date:', error, workout.date);
+                      return 'Invalid date format';
+                    }
+                  })()}
+                </Text>
               </Group>
               
               <Group gap="xs">

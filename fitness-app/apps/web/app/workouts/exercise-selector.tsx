@@ -140,61 +140,54 @@ export default function ExerciseSelector({ onSelectExercise }: ExerciseSelectorP
         `${apiUrl}/api/workouts/exercise/`
       ];
       
-      // Define auth formats to try
-      const authFormats = [
-        { name: 'Token', format: `Token ${token}` },
-        { name: 'Bearer', format: `Bearer ${token}` }
-      ];
+      // Use Token format consistently
+      const authHeader = `Token ${token}`;
       
       const errors: string[] = [];
       let success = false;
       
-      // Try all combinations of URL and auth formats
+      // Try all URL formats with Token auth
       for (const url of urlFormats) {
-        for (const auth of authFormats) {
-          if (success) continue; // Skip if we already succeeded
+        if (success) continue; // Skip if we already succeeded
+        
+        try {
+          console.log(`Trying ${url} with Token format...`);
           
-          try {
-            console.log(`Trying ${url} with ${auth.name} format...`);
-            
-            const response = await fetch(url, {
-              headers: {
-                'Authorization': auth.format,
-                'Content-Type': 'application/json'
-              }
-            });
-            
-            console.log(`Response status for ${url} with ${auth.name} format: ${response.status}`);
-            
-            if (response.ok) {
-              const data = await response.json();
-              console.log(`Success with ${url} using ${auth.name} format!`);
-              console.log('Data received:', data);
-              
-              // Check if data is in expected format
-              if (Array.isArray(data) && data.length > 0 && 'name' in data[0]) {
-                setExercises(data);
-                success = true;
-                break;
-              } else {
-                const errorMsg = `API returned unexpected data format from ${url}`;
-                console.error(errorMsg);
-                errors.push(errorMsg);
-              }
-            } else {
-              const errorText = await response.text();
-              const errorMessage = `API Error for ${url} with ${auth.name} format: ${response.status} - ${errorText}`;
-              console.error(errorMessage);
-              errors.push(errorMessage);
+          const response = await fetch(url, {
+            headers: {
+              'Authorization': authHeader,
+              'Content-Type': 'application/json'
             }
-          } catch (error) {
-            const errorMessage = `Network error for ${url} with ${auth.name} format: ${error instanceof Error ? error.message : String(error)}`;
+          });
+          
+          console.log(`Response status for ${url}: ${response.status}`);
+          
+          if (response.ok) {
+            const data = await response.json();
+            console.log(`Success with ${url}!`);
+            console.log('Data received:', data);
+            
+            // Check if data is in expected format
+            if (Array.isArray(data) && data.length > 0 && 'name' in data[0]) {
+              setExercises(data);
+              success = true;
+              break;
+            } else {
+              const errorMsg = `API returned unexpected data format from ${url}`;
+              console.error(errorMsg);
+              errors.push(errorMsg);
+            }
+          } else {
+            const errorText = await response.text();
+            const errorMessage = `API Error for ${url}: ${response.status} - ${errorText}`;
             console.error(errorMessage);
             errors.push(errorMessage);
           }
+        } catch (error) {
+          const errorMessage = `Network error for ${url}: ${error instanceof Error ? error.message : String(error)}`;
+          console.error(errorMessage);
+          errors.push(errorMessage);
         }
-        
-        if (success) break;
       }
       
       // If all attempts failed, check if we have 403/404 errors and provide mock data

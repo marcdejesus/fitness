@@ -10,7 +10,8 @@ import {
   IconUser, 
   IconLogout, 
   IconMenu2,
-  IconX
+  IconX,
+  IconApple
 } from '@tabler/icons-react';
 import { 
   AppShell, 
@@ -41,6 +42,7 @@ export default function Navbar() {
   const navItems = [
     { name: 'Home', href: '/', icon: <IconHome size={20} /> },
     { name: 'Workouts', href: '/workouts', icon: <IconBarbell size={20} /> },
+    { name: 'Nutrition', href: '/nutrition', icon: <IconApple size={20} /> },
     { name: 'Profile', href: '/profile', icon: <IconUser size={20} /> },
   ];
 
